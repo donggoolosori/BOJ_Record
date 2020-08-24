@@ -14,6 +14,5 @@ if __name__ == "__main__":
                 dp[i][j] = dp[i-1][j-1]
             else:
                 dp[i][j] = dp[i-1][j+1]+dp[i-1][j-1]
-    for i in dp:
-        print(i)
+
     print(sum(dp[n]) % 1000000000)

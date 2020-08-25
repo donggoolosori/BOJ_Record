@@ -3,6 +3,7 @@
         "xiosbase": "cpp",
         "xstring": "cpp",
         "queue": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "vector": "cpp"
     }
 }

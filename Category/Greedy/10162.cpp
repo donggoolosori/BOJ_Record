@@ -23,6 +23,6 @@ int main()
     }
     for (int i = 0; i < 3; i++)
         cout << btn_cnt[i] << ' ';
-
+    //test
     return 0;
 }

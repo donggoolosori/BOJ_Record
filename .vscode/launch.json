@@ -8,7 +8,7 @@
       "name": "g++.exe - 활성 파일 빌드 및 디버그",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}\\Category\\Graph\\13460_구슬탈출.exe",
+      "program": "${workspaceFolder}\\Category\\Graph\\13460.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

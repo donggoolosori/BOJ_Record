@@ -9,6 +9,7 @@
         "algorithm": "cpp",
         "iostream": "cpp",
         "deque": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "cmath": "cpp"
     }
 }

@@ -10,6 +10,7 @@
         "iostream": "cpp",
         "deque": "cpp",
         "initializer_list": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "xtree": "cpp"
     }
 }

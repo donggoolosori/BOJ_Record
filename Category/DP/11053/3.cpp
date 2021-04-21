@@ -4,18 +4,18 @@
 
 using namespace std;
 
-int cache[1000], numbers[1000];
+int cache[1001], numbers[1000];
 int n;
 
 int lis(int start)
 {
-    int &ret = cache[start];
+    int &ret = cache[start + 1];
     if (ret != -1)
         return ret;
 
     ret = 1;
     for (int next = start + 1; next < n; next++)
-        if (numbers[start] < numbers[next])
+        if (start == -1 || (numbers[start] < numbers[next]))
             ret = max(ret, lis(next) + 1);
 
     return ret;
@@ -34,10 +34,7 @@ int main()
     for (int i = 0; i < n; i++)
         cin >> numbers[i];
 
-    int maxLen = 0;
-    for (int i = 0; i < n; i++)
-        maxLen = max(maxLen, lis(i));
-    cout << maxLen << '\n';
+    cout << lis(-1) - 1 << '\n';
 
     return 0;
 }

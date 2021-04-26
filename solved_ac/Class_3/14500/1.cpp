@@ -78,24 +78,16 @@ int main()
             dfs(i, j, 0, paper[i][j]);
             // ㅏ 모양
             if (i + 2 < n && j + 1 < m)
-            {
                 shape1(i, j);
-            }
             // ㅗ 모양
             if (i - 1 >= 0 && j + 2 < m)
-            {
                 shape2(i, j);
-            }
             // ㅓ 모양
             if (i + 2 < n && j - 1 >= 0)
-            {
                 shape3(i, j);
-            }
             // ㅜ 모양
             if (i + 1 < n && j + 2 < m)
-            {
                 shape4(i, j);
-            }
         }
     }
     cout << ans << '\n';

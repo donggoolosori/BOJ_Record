@@ -1,7 +1,7 @@
-#include <algorithm>
 #include <iostream>
-#include <cmath>
 #include <vector>
+#include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,20 +13,15 @@ int main()
 
     int n;
     cin >> n;
-    vector<int> dp(n + 1, 50000);
+    int sqrtN = sqrt(n);
 
-    for (int i = 1; i <= sqrt(n); i++)
-    {
-        dp[i * i] = 1;
-    }
-    for (int i = 1; i <= sqrt(n); i++)
-    {
+    vector<int> cache(n + 1, 50000);
+    for (int i = 1; i <= sqrtN; i++)
+        cache[i * i] = 1;
+
+    for (int i = 1; i <= sqrtN; i++)
         for (int j = 1; j <= n - i * i; j++)
-        {
-            dp[j + i * i] = min(dp[j + i * i], dp[j] + 1);
-        }
-    }
-
-    cout << dp[n];
+            cache[j + i * i] = min(cache[j + i * i], cache[j] + 1);
+    cout << cache[n] << '\n';
     return 0;
 }

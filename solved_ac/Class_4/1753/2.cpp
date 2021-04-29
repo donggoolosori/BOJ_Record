@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int V, E, K;
+const int INF = 987654321;
+
+struct Node
+{
+    int w, idx;
+};
+struct compare
+{
+    bool operator()(Node a, Node b)
+    {
+        return a.w > b.w;
+    }
+};
+vector<Node> graph[20001];
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> V >> E >> K;
+    // 그래프 입력받기
+    int u, v, w;
+    while (E--)
+    {
+        cin >> u >> v >> w;
+        graph[u].push_back({w, v});
+    }
+
+    vector<int> cache(V + 1, INF);
+    cache[K] = 0;
+    priority_queue<Node, vector<Node>, compare> pq;
+    pq.push({0, K});
+
+    // 다익스트라
+    while (!pq.empty())
+    {
+        Node curr = pq.top();
+        pq.pop();
+
+        for (const auto &next : graph[curr.idx])
+        {
+            if (next.w + curr.w < cache[next.idx])
+            {
+                cache[next.idx] = next.w + curr.w;
+                pq.push({cache[next.idx], next.idx});
+            }
+        }
+    }
+    // 출력
+    for (int i = 1; i <= V; i++)
+    {
+        if (cache[i] == INF)
+            cout << "INF" << '\n';
+        else
+            cout << cache[i] << '\n';
+    }
+
+    return 0;
+}

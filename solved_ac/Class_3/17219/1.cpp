@@ -1,3 +1,4 @@
+#include <string>
 #include <iostream>
 #include <unordered_map>
 
@@ -9,22 +10,21 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int N, M;
-    cin >> N >> M;
+    int n, m;
+    cin >> n >> m;
 
-    unordered_map<string, string> memo;
-
-    string site, pw;
-    while (N--)
+    unordered_map<string, string> map;
+    string s1, s2;
+    while (n--)
     {
-        cin >> site >> pw;
-        memo[site] = pw;
+        cin >> s1 >> s2;
+        map.insert({s1, s2});
     }
-    while (M--)
+    string s3;
+    while (m--)
     {
-        cin >> site;
-        cout << memo[site] << '\n';
+        cin >> s3;
+        cout << map[s3] << '\n';
     }
-
     return 0;
 }

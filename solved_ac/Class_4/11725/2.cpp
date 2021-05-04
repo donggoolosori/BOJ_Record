@@ -1,7 +1,7 @@
-// dfs 사용
-// 10050kb 52ms
+// bfs 사용
+// 8050kb 44ms
 #include <iostream>
-#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -9,14 +9,23 @@ int N;
 int parent[100001];
 vector<int> graph[100001];
 
-void setParent(int curr)
+void bfs()
 {
-    for (const int &adj : graph[curr])
+    parent[1] = 1;
+    queue<int> q;
+    q.push(1);
+
+    while (!q.empty())
     {
-        if (parent[adj] == 0)
+        int curr = q.front();
+        q.pop();
+
+        for (const int &child : graph[curr])
         {
-            parent[adj] = curr;
-            setParent(adj);
+            if (parent[child] != 0)
+                continue;
+            parent[child] = curr;
+            q.push(child);
         }
     }
 }
@@ -36,10 +45,9 @@ int main()
         graph[b].push_back(a);
     }
 
-    parent[1] = 1;
-    setParent(1);
-
+    bfs();
     for (int i = 2; i <= N; i++)
         cout << parent[i] << '\n';
+
     return 0;
 }

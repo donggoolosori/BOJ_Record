@@ -1,19 +1,19 @@
 #include <iostream>
-#include <string>
-#define ll long long
 
 using namespace std;
 
-ll A, B, C;
+typedef long long int ll;
 
-ll getPow(ll n, ll r)
+ll pow_recur(ll a, ll b, ll c)
 {
-    if (r == 0)
+    if (b == 0)
         return 1;
-    if (r % 2 == 1)
-        return getPow(n, r - 1) * n % C;
-    ll temp = getPow(n, r / 2) % C;
-    return temp * temp % C;
+
+    if (b % 2 == 1)
+        return pow_recur(a, b - 1, c) * a;
+
+    ll n = pow_recur(a, b / 2, c) % c;
+    return n * n % c;
 }
 
 int main()
@@ -22,7 +22,10 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
+    ll A, B, C;
     cin >> A >> B >> C;
-    cout << getPow(A, B);
+    ll ans = pow_recur(A, B, C) % C;
+    cout << ans << '\n';
+
     return 0;
 }

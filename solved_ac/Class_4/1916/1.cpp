@@ -1,65 +1,67 @@
-#include <iostream>
 #include <queue>
 #include <vector>
+#include <iostream>
+#define INF 987654321
 
 using namespace std;
 
-const int INF = 987654321;
-int N, M, start, goal;
-struct Node
+struct node
 {
-    int cost, idx;
+    int to;
+    int cost;
 };
-vector<Node> maps[1001];
-vector<int> cache(1001, INF);
+int n, m, start, goal;
+vector<node> city[1001];
 
-struct compare
-{
-    bool operator()(Node a, Node b)
-    {
-        return a.cost > b.cost;
-    }
-};
-
-int getMinCost()
-{
-    priority_queue<Node, vector<Node>, compare> pq;
-    pq.push({0, start});
-    cache[start] = 0;
-
-    while (!pq.empty())
-    {
-        Node curr = pq.top();
-        pq.pop();
-
-        for (const auto &next : maps[curr.idx])
-        {
-            if (curr.cost + next.cost >= cache[next.idx])
-                continue;
-            cache[next.idx] = curr.cost + next.cost;
-            pq.push({curr.cost + next.cost, next.idx});
-        }
-    }
-    return cache[goal];
-}
-
-int main()
+void input()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
-    cin >> N >> M;
+    cin >> n >> m;
     int fr, to, cost;
-    while (M--)
+    while (m--)
     {
         cin >> fr >> to >> cost;
-        maps[fr].push_back({cost, to});
+        city[fr].push_back({to, cost});
     }
     cin >> start >> goal;
+}
 
-    // 다익스트라
-    cout << getMinCost() << '\n';
+int dijkstra()
+{
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    vector<int> d(n + 1, INF);
+    d[start] = 0;
+    pq.push({0, start});
 
+    while (!pq.empty())
+    {
+        pair<int, int> cur = pq.top();
+        pq.pop();
+        int cost = cur.first;
+        int index = cur.second;
+        if (d[index] < cost)
+            continue;
+
+        for (const auto &i : city[index])
+        {
+            int next_cost = cost + i.cost;
+            int next_index = i.to;
+            if (d[next_index] > next_cost)
+            {
+                d[next_index] = next_cost;
+                pq.push({next_cost, next_index});
+            }
+        }
+    }
+    return d[goal];
+}
+
+int main()
+{
+    input();
+    cout << dijkstra();
     return 0;
 }

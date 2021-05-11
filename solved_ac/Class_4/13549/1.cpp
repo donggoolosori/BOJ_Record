@@ -1,12 +1,10 @@
 #include <iostream>
 #include <cstring>
-#include <algorithm>
 #include <queue>
 #define MAX 100001
 
 using namespace std;
 
-const int INF = 987654321;
 int subin, bro;
 int cache[MAX];
 struct Node
@@ -18,12 +16,14 @@ struct Node
     }
 };
 
+// 다익스트라 알고리즘
 int getMinTime()
 {
+    // cache 초기화
     for (int i = 0; i < MAX; i++)
-        cache[i] = INF;
-    // 다익스트라 알고리즘
+        cache[i] = MAX;
     cache[subin] = 0;
+    // 오름차순 우선순위 큐
     priority_queue<Node> pq;
     pq.push({subin, 0});
 
@@ -32,7 +32,6 @@ int getMinTime()
         Node curr = pq.top();
         int idx = curr.idx, dist = curr.dist;
         pq.pop();
-
         if (dist > cache[idx])
             continue;
 
@@ -60,6 +59,7 @@ int getMinTime()
         }
     }
 
+    // 수빈 -> 동생까지의 최소경로 반환
     return cache[bro];
 }
 
@@ -69,9 +69,9 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    memset(cache, -1, sizeof(cache));
     cin >> subin >> bro;
 
+    // 수빈이가 동생보다 앞에 있다면 -1로 밖에 이동할 수 없다
     if (subin >= bro)
     {
         cout << subin - bro << '\n';

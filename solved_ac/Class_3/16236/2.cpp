@@ -11,22 +11,18 @@ int dy[] = {-1, 0, 0, 1}, dx[] = {0, -1, 1, 0};
 struct Fish
 {
     int y, x, dist;
-};
-queue<Fish> shark;
-
-struct compare
-{
-    bool operator()(Fish a, Fish b)
+    bool operator<(const Fish &b) const
     {
-        if (a.dist == b.dist)
+        if (dist == b.dist)
         {
-            if (a.y == b.y)
-                return a.x > b.x;
-            return a.y > b.y;
+            if (y == b.y)
+                return x > b.x;
+            return y > b.y;
         }
-        return a.dist > b.dist;
+        return dist > b.dist;
     }
 };
+queue<Fish> shark;
 
 int getMaxTime()
 {
@@ -34,7 +30,7 @@ int getMaxTime()
 
     while (true)
     {
-        priority_queue<Fish, vector<Fish>, compare> feed;
+        priority_queue<Fish> feed;
         vector<vector<bool>> visit(N, vector<bool>(N));
         // bfs로 먹을 수 있는 먹이 모두 찾기
         while (!shark.empty())

@@ -9,21 +9,17 @@ int N, M, start, goal;
 struct Node
 {
     int cost, idx;
+    bool operator<(const Node &b) const
+    {
+        return cost > b.cost;
+    }
 };
 vector<Node> maps[1001];
 vector<int> cache(1001, INF);
 
-struct compare
-{
-    bool operator()(Node a, Node b)
-    {
-        return a.cost > b.cost;
-    }
-};
-
 int getMinCost()
 {
-    priority_queue<Node, vector<Node>, compare> pq;
+    priority_queue<Node> pq;
     pq.push({0, start});
     cache[start] = 0;
 

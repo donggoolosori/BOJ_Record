@@ -10,14 +10,12 @@ const int INF = 987654321;
 struct Node
 {
     int w, idx;
-};
-struct compare
-{
-    bool operator()(Node a, Node b)
+    bool operator<(const Node &b) const
     {
-        return a.w > b.w;
+        return w > b.w;
     }
 };
+
 vector<Node> graph[20001];
 
 int main()
@@ -37,7 +35,7 @@ int main()
 
     vector<int> cache(V + 1, INF);
     cache[K] = 0;
-    priority_queue<Node, vector<Node>, compare> pq;
+    priority_queue<Node> pq;
     pq.push({0, K});
 
     // 다익스트라
@@ -45,6 +43,8 @@ int main()
     {
         Node curr = pq.top();
         pq.pop();
+        if (curr.w > cache[curr.idx])
+            continue;
 
         for (const auto &next : graph[curr.idx])
         {

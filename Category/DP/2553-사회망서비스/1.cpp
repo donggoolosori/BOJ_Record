@@ -32,21 +32,22 @@ void getInput() {
 }
 
 int dfs(int curr, int state) {
-  if (cache[curr][state] != -1) return cache[curr][state];
+  int &ret = cache[curr][state];
+  if (ret != -1) return ret;
 
   if (state == 1) {
-    cache[curr][state] = 1;
+    ret = 1;
     for (const auto &next : tree[curr]) {
-      cache[curr][state] += min(dfs(next, 0), dfs(next, 1));
+      ret += min(dfs(next, 0), dfs(next, 1));
     }
   } else {
-    cache[curr][state] = 0;
+    ret = 0;
     for (const auto &next : tree[curr]) {
-      cache[curr][state] += dfs(next, 1);
+      ret += dfs(next, 1);
     }
   }
 
-  return cache[curr][state];
+  return ret;
 }
 
 int main() {

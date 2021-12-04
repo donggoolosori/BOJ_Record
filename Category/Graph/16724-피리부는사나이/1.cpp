@@ -7,7 +7,7 @@ using namespace std;
 
 string map[MAX];
 int visit[MAX][MAX], finished[MAX][MAX];
-int n, m, cycle, order;
+int n, m, cycle;
 
 pair<int, int> getNextPos(int y, int x) {
   switch (map[y][x]) {
@@ -25,7 +25,7 @@ pair<int, int> getNextPos(int y, int x) {
 }
 
 void dfs(int y, int x) {
-  visit[y][x] = order++;
+  visit[y][x] = true;
 
   pair<int, int> nextPos = getNextPos(y, x);
   int ny = nextPos.first, nx = nextPos.second;

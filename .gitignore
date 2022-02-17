@@ -13,3 +13,4 @@
 .vscode
 .DS_Store
 .out
+*.txt

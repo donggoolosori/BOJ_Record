@@ -28,19 +28,33 @@ matrix operator*(matrix const& A, matrix const& B) {
   return ret;
 }
 
+// matrix pow(matrix a, int n) {
+//   matrix ret(a.size(), vector<ll>(a.size()));
+
+//   for (int i = 0; i < a.size(); i++) ret[i][i] = 1;
+
+//   while (n > 0) {
+//     if (n & 1) {
+//       ret = ret * a;
+//     }
+
+//     a = a * a;
+
+//     n >>= 1;
+//   }
+
+//   return ret;
+// }
+
 matrix pow(matrix a, int n) {
-  matrix ret(a.size(), vector<ll>(a.size()));
+  if (n == 1) return a;
 
-  for (int i = 0; i < a.size(); i++) ret[i][i] = 1;
+  matrix ret = pow(a, n / 2);
 
-  while (n > 0) {
-    if (n & 1) {
-      ret = ret * a;
-    }
+  ret = ret * ret;
 
-    a = a * a;
-
-    n >>= 1;
+  if (n & 1) {
+    ret = ret * a;
   }
 
   return ret;

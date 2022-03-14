@@ -6,6 +6,8 @@
 #include <vector>
 
 #define FAST_IO ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define PII pair<int, int>
+#define ll long long
 
 using namespace std;
 

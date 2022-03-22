@@ -18,6 +18,7 @@ int dy[] = {-1, 0, 0, 1}, dx[] = {0, -1, 1, 0};
 deque<int> circles[MAX + 1];
 
 void print() {
+  cout << "------------\n";
   for (int i = 1; i <= N; i++) {
     for (int j = 0; j < M; j++) {
       cout << circles[i][j] << ' ';
@@ -96,8 +97,10 @@ void erase() {
 
         if (circles[i][j] > avg) {
           circles[i][j]--;
+          sums[i]--;
         } else if (circles[i][j] < avg) {
           circles[i][j]++;
+          sums[i]++;
         }
       }
     }

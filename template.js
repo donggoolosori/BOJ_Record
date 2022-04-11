@@ -7,7 +7,7 @@ function input() {
   const read = fs.readFileSync('input.txt', 'utf-8').split('\n');
   // const read = fs.readFileSync(0, 'utf-8').split('\n');
 
-  return read;
+  return [read];
 }
 
-solution(input());
+solution(...input());

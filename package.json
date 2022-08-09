@@ -6,7 +6,7 @@
   "author": "Dongjune Dane Kim <kdj6551@naver.com>",
   "license": "MIT",
   "scripts": {
-    "make": "node init.js"
+    "make": "node make.js"
   },
   "dependencies": {
     "axios": "^0.27.2",

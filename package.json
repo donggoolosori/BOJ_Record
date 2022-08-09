@@ -1,0 +1,17 @@
+{
+  "name": "BOJ_Record",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/donggoolosori/BOJ_Record",
+  "author": "Dongjune Dane Kim <kdj6551@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node init.js"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "jest": "^28.1.3",
+    "prompt": "^1.3.0"
+  }
+}

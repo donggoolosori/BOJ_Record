@@ -16,32 +16,23 @@ prompt.get(
         description: 'problem number: ',
         delimiter: ' ',
       },
+      language: {
+        description: 'language(cpp, js): ',
+        delimiter: ' ',
+      },
     },
   },
   async (err, result) => {
     if (err) {
       return;
     }
-    const { problemNumber } = result;
+    const { problemNumber, language } = result;
 
-    crawlProblem(problemNumber);
+    makeSolutionFile(problemNumber, language);
   }
 );
 
-async function getHtml(problemNumber) {
-  const { data } = await axios.get(
-    `https://www.acmicpc.net/problem/${problemNumber}`
-  );
-  return data;
-}
-
-async function crawlProblem(problemNumber) {
-  const html = await getHtml(problemNumber);
-  const $ = cheerio.load(html);
-  const title = $('span#problem_title').text().trim();
-
-  const examples = $('pre.sampledata');
-
+function makeExampleFile(examples, $) {
   const inputs = examples
     .filter(function () {
       return $(this)
@@ -64,6 +55,14 @@ async function crawlProblem(problemNumber) {
     })
     .get();
 
+  return { inputs, outputs };
+}
+
+async function makeSolutionFile(problemNumber, language) {
+  const { title, examples, $ } = await crawlProblem(problemNumber);
+
+  const { inputs, outputs } = makeExampleFile(examples, $);
+
   const dir = path.join(__dirname, `${problemNumber}-${title}`);
 
   if (!fs.existsSync(dir)) {
@@ -78,8 +77,6 @@ async function crawlProblem(problemNumber) {
     fs.mkdirSync(outputDir);
   }
 
-  let solutionNum = 0;
-
   console.log(`${problemNumber} "${title}"`);
   inputs.forEach((input, idx) =>
     fs.writeFileSync(path.join(inputDir, `input-${idx}.txt`), input)
@@ -90,13 +87,31 @@ async function crawlProblem(problemNumber) {
   );
   console.log('🚀 outputs of testcase is generated!');
   const jsTemplateDir = path.join(__dirname, 'template.js');
-  while (true) {
-    const p = path.join(dir, `solution-${solutionNum++}.js`);
-    if (!fs.existsSync(p)) {
-      fs.copyFileSync(jsTemplateDir, p);
-      console.log(`🚀 solution-${solutionNum - 1}.js is generated!`);
-      break;
-    }
+  const cppTemplateDir = path.join(__dirname, 'template.cpp');
+
+  const p = path.join(dir, `solution.${language}`);
+
+  if (language === 'js') {
+    fs.copyFileSync(jsTemplateDir, p);
+  } else if (language === 'cpp') {
+    fs.copyFileSync(cppTemplateDir, p);
   }
-  //TODO: jest 파일 생성
+  console.log(`🚀 solution.${language} is generated!`);
+}
+
+async function getHtml(problemNumber) {
+  const { data } = await axios.get(
+    `https://www.acmicpc.net/problem/${problemNumber}`
+  );
+  return data;
+}
+
+async function crawlProblem(problemNumber) {
+  const html = await getHtml(problemNumber);
+  const $ = cheerio.load(html);
+  const title = $('span#problem_title').text().trim();
+
+  const examples = $('pre.sampledata');
+
+  return { title, examples, $ };
 }

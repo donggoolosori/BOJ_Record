@@ -83,17 +83,16 @@ async function makeSolutionFile(problemNumber, language) {
   }
 
   console.log(`${problemNumber} "${title}"`);
+
   inputs.forEach((input, idx) =>
     fs.writeFileSync(path.join(inputDir, `input-${idx}.txt`), input)
   );
   console.log('🚀 inputs of testcase is generated!');
+
   outputs.forEach((output, idx) =>
     fs.writeFileSync(path.join(outputDir, `output-${idx}.txt`), output)
   );
   console.log('🚀 outputs of testcase is generated!');
-
-  const jsTemplateDir = path.join(__dirname, 'template.js');
-  const cppTemplateDir = path.join(__dirname, 'template.cpp');
 
   const templatePath = path.join(__dirname, `template.${language}`);
   const solutionPath = path.join(dir, `solution.${language}`);

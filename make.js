@@ -4,6 +4,8 @@ const prompt = require('prompt');
 const fs = require('fs');
 const path = require('path');
 
+const languages = ['cpp', 'js', 'py'];
+
 prompt.message = '';
 prompt.delimiter = '';
 
@@ -17,7 +19,7 @@ prompt.get(
         delimiter: ' ',
       },
       language: {
-        description: 'language(cpp, js): ',
+        description: `language(${languages}): `,
         delimiter: ' ',
       },
     },
@@ -59,6 +61,9 @@ function makeExampleFile(examples, $) {
 }
 
 async function makeSolutionFile(problemNumber, language) {
+  if (!languages.includes(language)) {
+    throw new Error('Invalid language input');
+  }
   const { title, examples, $ } = await crawlProblem(problemNumber);
 
   const { inputs, outputs } = makeExampleFile(examples, $);
@@ -86,16 +91,15 @@ async function makeSolutionFile(problemNumber, language) {
     fs.writeFileSync(path.join(outputDir, `output-${idx}.txt`), output)
   );
   console.log('🚀 outputs of testcase is generated!');
+
   const jsTemplateDir = path.join(__dirname, 'template.js');
   const cppTemplateDir = path.join(__dirname, 'template.cpp');
 
-  const p = path.join(dir, `solution.${language}`);
+  const templatePath = path.join(__dirname, `template.${language}`);
+  const solutionPath = path.join(dir, `solution.${language}`);
 
-  if (language === 'js') {
-    fs.copyFileSync(jsTemplateDir, p);
-  } else if (language === 'cpp') {
-    fs.copyFileSync(cppTemplateDir, p);
-  }
+  fs.copyFileSync(templatePath, solutionPath);
+
   console.log(`🚀 solution.${language} is generated!`);
 }
 

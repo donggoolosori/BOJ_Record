@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 N, M = map(int, input().split())
 
 network = [[] for _ in range(N+1)]
@@ -14,9 +11,9 @@ dp = [-1]*(N+1)
 
 
 def dfs(curr):
-    global visited
+    global visited, dp
 
-    if (dp[curr] != -1):
+    if dp[curr] != -1:
         return dp[curr]
 
     count = 1

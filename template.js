@@ -2,12 +2,14 @@
 const fs = require("fs");
 const path = require("path");
 
-function solution() {}
-
 function refineInput(input) {
   // const [n, m] = input[0].split(" ").map(Number);
-  // const paper = input.slice(1, 1 + n).map((s) => s.split(" ").map(Number));
-  // return [n, m, paper];
+  // return [n, m];
+}
+
+function solution(n, m) {
+  // const ans = n+m;
+  // return ans;
 }
 
 function printAnswer(ans) {

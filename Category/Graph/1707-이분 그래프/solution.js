@@ -24,7 +24,7 @@ function solution(t, inputs) {
 }
 
 function printAnswer(ans) {
-  // console.log(ans);
+  console.log(ans);
 }
 
 function input() {

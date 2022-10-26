@@ -13,13 +13,30 @@ function solution(t, inputs) {
   let read = 0;
   while (t--) {
     const [v, e] = inputs[read];
-    const graph = Array.from({ length: v + 1 }, () => Array.from({ length: v + 1 }, () => false));
+    const graph = Array.from({ length: v + 1 }, () => []);
+    const visited = Array.from({ length: v + 1 }, () => 0);
+
     for (let i = read + 1; i <= read + e; i++) {
       const [u, v] = inputs[i];
-      graph[u][v] = true;
-      graph[v][u] = true;
+      graph[u].push(v);
+      graph[v].push(u);
     }
     read += e + 1;
+
+    function dfs(cur) {
+      if (!visited[cur]) visited[cur] = 1;
+
+      graph[cur].forEach((next) => {
+        if (visited[next]) return;
+
+        if (visited[cur] === 1) {
+          visited[next] = 2;
+        } else if (visited[cur] === 2) {
+          visited[next] = 1;
+        }
+        dfs(next);
+      });
+    }
   }
 }
 

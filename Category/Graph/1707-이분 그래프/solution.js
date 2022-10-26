@@ -11,6 +11,7 @@ function refineInput(input) {
 
 function solution(t, inputs) {
   let read = 0;
+
   while (t--) {
     const [v, e] = inputs[read];
     const graph = Array.from({ length: v + 1 }, () => []);
@@ -22,6 +23,16 @@ function solution(t, inputs) {
       graph[v].push(u);
     }
     read += e + 1;
+
+    for (let i = 1; i <= v; i++) {
+      if (visited[i]) continue;
+      dfs(i);
+    }
+    if (isBipartite()) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
 
     function dfs(cur) {
       if (!visited[cur]) visited[cur] = 1;
@@ -37,11 +48,19 @@ function solution(t, inputs) {
         dfs(next);
       });
     }
+    function isBipartite() {
+      for (let cur = 1; cur <= v; cur++) {
+        for (const next of graph[cur]) {
+          if (visited[next] === visited[cur]) return false;
+        }
+      }
+      return true;
+    }
   }
 }
 
 function printAnswer(ans) {
-  console.log(ans);
+  // console.log(ans);
 }
 
 function input() {

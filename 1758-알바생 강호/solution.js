@@ -3,8 +3,8 @@ const fs = require("fs");
 const path = require("path");
 
 function refineInput(input) {
-  // const [n, m] = input[0].split(" ").map(Number);
-  // return [n, m];
+  const [n, m] = input[0].split(" ").map(Number);
+  return [n, m];
 }
 
 function solution(n, m) {
@@ -17,9 +17,7 @@ function printAnswer(ans) {
 }
 
 function input() {
-  const read = fs
-    .readFileSync(path.join(__dirname, "/input/input-0.txt"), "utf-8")
-    .split("\n");
+  const read = fs.readFileSync(path.join(__dirname, "/input/input-0.txt"), "utf-8").split("\n");
   // const read = fs.readFileSync(0, 'utf-8').split('\n');
 
   return read;

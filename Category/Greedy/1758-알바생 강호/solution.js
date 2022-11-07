@@ -3,17 +3,22 @@ const fs = require("fs");
 const path = require("path");
 
 function refineInput(input) {
-  const [n, m] = input[0].split(" ").map(Number);
-  return [n, m];
+  const n = Number(input[0]);
+  const tips = input.slice(1, 1 + n).map(Number);
+
+  return [n, tips];
 }
 
-function solution(n, m) {
-  // const ans = n+m;
-  // return ans;
+function solution(n, tips) {
+  tips.sort((a, b) => b - a);
+
+  return tips.reduce((res, tip, idx) => {
+    return res + Math.max(0, tip - idx);
+  }, 0);
 }
 
 function printAnswer(ans) {
-  // console.log(ans);
+  console.log(ans);
 }
 
 function input() {
